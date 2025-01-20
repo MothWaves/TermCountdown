@@ -4,7 +4,7 @@ pub struct Countdown {
 }
 
 pub struct App<'a> {
-    title: &'a str,
+    pub title: &'a str,
     countdown: Option<Countdown>,
     pub should_quit: bool,
 }
