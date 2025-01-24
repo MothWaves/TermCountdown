@@ -67,7 +67,7 @@ fn run_app<B: Backend>(
         if event::poll(timeout)? {
             if let Event::Key(key) = event::read()? {
                 if key.kind == KeyEventKind::Press {
-                    match_key_press(key.code, app);
+                    match_key_press(key.code, &mut app);
                 }
             }
         }
@@ -81,12 +81,13 @@ fn run_app<B: Backend>(
     }
 }
 
-pub fn match_key_press(key_code: KeyCode, mut app: App) {
+pub fn match_key_press(key_code: KeyCode, app: &mut App) {
     match key_code {
         KeyCode::Left | KeyCode::Char('h') => app.on_left(),
         KeyCode::Up | KeyCode::Char('k') => app.on_up(),
         KeyCode::Right | KeyCode::Char('l') => app.on_right(),
         KeyCode::Down | KeyCode::Char('j') => app.on_down(),
+        KeyCode::Esc => app.on_esc(),
         KeyCode::Char(c) => app.on_key(c),
         _ => {}
     }
