@@ -7,6 +7,7 @@ pub struct App<'a> {
     pub title: &'a str,
     countdown: Option<Countdown>,
     pub should_quit: bool,
+    pub logged_messages: Vec<&'a str>,
 }
 
 impl<'a> App<'a> {
@@ -15,6 +16,7 @@ impl<'a> App<'a> {
             title,
             countdown: Option::None,
             should_quit: false,
+            logged_messages: Vec::new(),
         }
     }
 
@@ -44,5 +46,9 @@ impl<'a> App<'a> {
 
     pub fn on_tick(&mut self) {
 
+    }
+
+    pub fn log(&mut self, text: &'a str) {
+        self.logged_messages.push(text);
     }
 }

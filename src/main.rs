@@ -7,7 +7,7 @@ use std::{
 use ratatui::{
     backend::{Backend, CrosstermBackend},
     crossterm::{
-        event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEventKind},
+        event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEventKind, KeyEvent, KeyModifiers},
         execute,
         terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
     },
@@ -67,7 +67,7 @@ fn run_app<B: Backend>(
         if event::poll(timeout)? {
             if let Event::Key(key) = event::read()? {
                 if key.kind == KeyEventKind::Press {
-                    match_key_press(key.code, &mut app);
+                    match_key_press(key, &mut app);
                 }
             }
         }
@@ -76,19 +76,38 @@ fn run_app<B: Backend>(
             last_tick = Instant::now();
         }
         if app.should_quit {
+            // TODO Need to look into how to print logged messages at the end of the app.
+            for message in app.logged_messages {
+                println!("{}", message);
+            }
             return Ok(());
         }
     }
 }
 
-pub fn match_key_press(key_code: KeyCode, app: &mut App) {
-    match key_code {
-        KeyCode::Left | KeyCode::Char('h') => app.on_left(),
-        KeyCode::Up | KeyCode::Char('k') => app.on_up(),
-        KeyCode::Right | KeyCode::Char('l') => app.on_right(),
-        KeyCode::Down | KeyCode::Char('j') => app.on_down(),
-        KeyCode::Esc => app.on_esc(),
-        KeyCode::Char(c) => app.on_key(c),
-        _ => {}
+pub fn match_key_press(key: KeyEvent, app: &mut App) {
+    if key.modifiers == KeyModifiers::CONTROL {
+        match key.code {
+            KeyCode::Char('c') => {
+                app.log("AAAAAAAAAAAA");
+
+            }
+            _ => {}
+        }
+    }
+    else {
+        match key.code {
+            KeyCode::Left | KeyCode::Char('h') => app.on_left(),
+            KeyCode::Up | KeyCode::Char('k') => app.on_up(),
+            KeyCode::Right | KeyCode::Char('l') => app.on_right(),
+            KeyCode::Down | KeyCode::Char('j') => app.on_down(),
+            KeyCode::Char('J') => {
+                app.should_quit = true;
+                app.log("UPPERCASE J");
+            },
+            KeyCode::Esc => app.on_esc(),
+            KeyCode::Char(c) => app.on_key(c),
+            _ => {}
+        }
     }
 }
