@@ -88,10 +88,7 @@ fn run_app<B: Backend>(
 pub fn match_key_press(key: KeyEvent, app: &mut App) {
     if key.modifiers == KeyModifiers::CONTROL {
         match key.code {
-            KeyCode::Char('c') => {
-                app.log("AAAAAAAAAAAA");
-
-            }
+            KeyCode::Char('c') => app.should_quit = true,
             _ => {}
         }
     }
@@ -101,10 +98,11 @@ pub fn match_key_press(key: KeyEvent, app: &mut App) {
             KeyCode::Up | KeyCode::Char('k') => app.on_up(),
             KeyCode::Right | KeyCode::Char('l') => app.on_right(),
             KeyCode::Down | KeyCode::Char('j') => app.on_down(),
-            KeyCode::Char('J') => {
-                app.should_quit = true;
-                app.log("UPPERCASE J");
-            },
+            // TODO Make note on how uppercase is differently registered from lowercase.
+            // KeyCode::Char('J') => {
+            //     app.should_quit = true;
+            //     app.log("UPPERCASE J");
+            // },
             KeyCode::Esc => app.on_esc(),
             KeyCode::Char(c) => app.on_key(c),
             _ => {}
