@@ -61,9 +61,7 @@ fn run_app<B: Backend>(
 ) -> io::Result<()> {
     let mut last_tick = Instant::now();
     loop {
-        terminal.draw(|frame| ui::draw(frame, &mut app))?;
-
-        let timeout = tick_rate.saturating_sub(last_tick.elapsed());
+        terminal.draw(|frame| ui::draw(frame, &mut app))?; let timeout = tick_rate.saturating_sub(last_tick.elapsed());
         if event::poll(timeout)? {
             if let Event::Key(key) = event::read()? {
                 if key.kind == KeyEventKind::Press {
@@ -104,7 +102,7 @@ pub fn match_key_press(key: KeyEvent, app: &mut App) {
             //     app.log("UPPERCASE J");
             // },
             KeyCode::Esc => app.on_esc(),
-            KeyCode::Char(c) => app.on_key(c),
+            KeyCode::Char('q') => app.should_quit = true,
             _ => {}
         }
     }

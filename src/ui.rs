@@ -18,8 +18,8 @@ pub fn draw(frame: &mut Frame, app: &mut App) {
     let chunks = Layout::default()
         .direction(Direction::Horizontal)
         .constraints([
-            Constraint::Ratio(1, 3),
-            Constraint::Length(1),
+            Constraint::Max(30),
+            Constraint::Fill(3),
         ])
         .split(frame.area());
 
@@ -53,5 +53,10 @@ pub fn draw(frame: &mut Frame, app: &mut App) {
     let list = List::new(list_items)
         .block(list_block);
 
+    let countdown = Block::default()
+        .borders(Borders::ALL)
+        .style(Style::default());
+   
     frame.render_widget(list, chunks[0]);
+    frame.render_widget(countdown, chunks[1]);
 }

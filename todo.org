@@ -1,0 +1,13 @@
+- [ ] Add config file
+- [ ] Add repository of countdown pools
+- [ ] Decide countdown file structure
+  Should have the settings for each countdown like what to display (hours, minutes, days, etc...), a title, a date to count down to (obviously, but which format?)
+- [ ] Add countdown creation menu
+- [ ] Add countdown deletion
+- [ ] Make countdown actually work.
+
+
+* Settings
+** Deletion
+Countdowns could be automatically "deleted" based on per-countdown setting or global configuration. Deletion could be just normal deletion of the file or the file could be moved to a "graveyard" directory with old countdowns archived.
+Deletion should probably have a grace period, meaning it'd only get deleted automatically after some time.
