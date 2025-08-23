@@ -11,11 +11,39 @@ use ratatui::{DefaultTerminal, Frame};
 //     app::App,
 // };
 
-pub fn main() -> Result<(), Box<dyn Error>> {
-
+pub fn main() -> Result<()> {
+    color_eyre::install()?;
+    let terminal = ratatui::init();
+    let result = run(terminal);
+    ratatui::restore();
+    result
 }
 
-fn run() {
+fn run(mut terminal: DefaultTerminal) -> Result<()> {
+    static mut display_num: i32 = 0;
+    loop {
+        terminal.draw(render)?;
+        if let Event::Key(key) = event::read()? {
+            match key.code {
+                event::KeyCode::Char(c) => {
+                    if c == 'q' {
+                        break Ok(())
+                    }
+                }
+                _ => {}
+            }
+        }
+        unsafe {
+            display_num += 1;
+        }
+    }
+}
+
+fn render<'a>(frame: &mut Frame) {
+    unsafe {
+        let display_text: 'a String = String::from(display_num);
+    }
+    frame.render_widget(display_text, frame.area())
 }
 
 // pub fn match_key_press(key: KeyEvent, app: &mut App) {
