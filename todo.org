@@ -1,4 +1,5 @@
-- [ ] Add config file
+- [ ] Add config file [0/1]
+  - [ ] Setting countdown pools
 - [ ] Add repository of countdown pools
 - [ ] Decide countdown file structure
   Should have the settings for each countdown like what to display (hours, minutes, days, etc...), a title, a date to count down to (obviously, but which format?)
