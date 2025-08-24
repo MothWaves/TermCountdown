@@ -19,8 +19,9 @@ pub fn main() -> Result<()> {
     result
 }
 
+static mut display_num: i32 = 0;
+
 fn run(mut terminal: DefaultTerminal) -> Result<()> {
-    static mut display_num: i32 = 0;
     loop {
         terminal.draw(render)?;
         if let Event::Key(key) = event::read()? {
@@ -39,11 +40,11 @@ fn run(mut terminal: DefaultTerminal) -> Result<()> {
     }
 }
 
-fn render<'a>(frame: &mut Frame) {
+fn render(frame: &mut Frame) {
     unsafe {
-        let display_text: 'a String = String::from(display_num);
+        let display_text = display_num.to_string();
+        frame.render_widget(display_text, frame.area())
     }
-    frame.render_widget(display_text, frame.area())
 }
 
 // pub fn match_key_press(key: KeyEvent, app: &mut App) {
