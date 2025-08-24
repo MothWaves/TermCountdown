@@ -1,3 +1,6 @@
+Right now I should really just ignore this entire file, and just make a countdown system that works. That's it, that's the priority. After that I can look back here and work on implementing this stuff.
+
+
 - [ ] Add config file [0/1]
   - [ ] Setting countdown pools
 - [ ] Add repository of countdown pools
