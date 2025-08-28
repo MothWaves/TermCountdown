@@ -1,6 +1,11 @@
 Right now I should really just ignore this entire file, and just make a countdown system that works. That's it, that's the priority. After that I can look back here and work on implementing this stuff.
 
 
+* TODO
+** TODO Countdown Logic
+- [ ] Handle DST
+- [ ] Handle negative countdowns
+** TODO Misc.
 - [ ] Add config file [0/1]
   - [ ] Setting countdown pools
 - [ ] Add repository of countdown pools
@@ -9,8 +14,6 @@ Right now I should really just ignore this entire file, and just make a countdow
 - [ ] Add countdown creation menu
 - [ ] Add countdown deletion
 - [ ] Make countdown actually work.
-
-
 * Settings
 ** Deletion
 Countdowns could be automatically "deleted" based on per-countdown setting or global configuration. Deletion could be just normal deletion of the file or the file could be moved to a "graveyard" directory with old countdowns archived.
